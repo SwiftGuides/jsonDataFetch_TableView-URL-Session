@@ -8,18 +8,46 @@
 
 import UIKit
 
+// Made the Struct so that we dont have to mention these keys everywhere in the code
+struct myJsonStruct:Decodable{
+    let name:String
+    let capital:String
+}
+
 class ViewController: UIViewController {
 
+    var arrData = [myJsonStruct]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        getData()
+
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func getData(){
+        
+        let url = URL(string: "https://restcountries.eu/rest/v2/all")
+        URLSession.shared.dataTask(with: url!) { (data, response, error) in
+            do {
+                if error == nil {
+                    self.arrData = try JSONDecoder().decode([myJsonStruct].self, from: data!)
+                    
+                    for mainArr in self.arrData{
+                    
+                        print(mainArr.name,":",mainArr.capital)
+                        
+                    }
+                        
+                }
+            }catch{
+                    
+                    print("Error in ghetting JSON Data")
+                }
+                
+                
+            }.resume()
+        }
     }
+    
 
 
-}
 
