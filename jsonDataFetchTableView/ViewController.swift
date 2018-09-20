@@ -12,6 +12,7 @@ import UIKit
 struct myJsonStruct:Decodable{
     let name:String
     let capital:String
+    let region:String
 }
 
 class ViewController: UIViewController {
@@ -33,7 +34,7 @@ class ViewController: UIViewController {
                     
                     for mainArr in self.arrData{
                     
-                        print(mainArr.name,":",mainArr.capital)
+                        print(mainArr.name,":",mainArr.capital,":",mainArr.region)
                         
                     }
                         
